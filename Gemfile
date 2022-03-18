@@ -3,3 +3,4 @@ ruby '2.7.3'
 
 gem 'sinatra'
 gem 'sinew'
+gem 'puma'

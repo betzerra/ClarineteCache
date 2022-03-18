@@ -51,10 +51,13 @@ GEM
     multipart-post (2.1.1)
     mustermann (1.1.1)
       ruby2_keywords (~> 0.0.1)
+    nio4r (2.5.8)
     nokogiri (1.13.3)
       mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
     parslet (1.8.2)
+    puma (5.6.2)
+      nio4r (~> 2.0)
     racc (1.6.0)
     rack (2.2.3)
     rack-protection (2.2.0)
@@ -87,6 +90,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  puma
   sinatra
   sinew
 
