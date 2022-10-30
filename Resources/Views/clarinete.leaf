@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <!-- Minified version -->
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+    <title>Clarinete</title>
+</head>
+
+<body>
+    <h1>Trends</h1>
+    <p><b>Última actualización:</b> #date(cache.timestamp, "dd-MM-YYYY hh:mm")</p>
+    <ul>
+        #for(topic in cache.trends):
+        <li>
+            <a href="#(topic.url.relative)"><b>#(topic.name)</b></a> - #(topic.title)
+        </li>
+        #endfor
+    </ul>
+</body>
+</html>

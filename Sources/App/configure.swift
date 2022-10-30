@@ -7,8 +7,10 @@ public func configure(_ app: Application) throws {
     // app.middleware.use(FileMiddleware(publicDirectory: app.directory.publicDirectory))
 
     app.views.use(.leaf)
-
-    
+    app.http.client.configuration.timeout = .init(
+        connect: .seconds(5),
+        read: .seconds(5)
+    )
 
     // register routes
     try routes(app)
