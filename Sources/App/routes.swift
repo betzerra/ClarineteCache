@@ -7,11 +7,15 @@ enum ClarineteError: Error {
 
 func routes(_ app: Application) throws {
     app.get("api", "trends") { req async throws -> [Trend] in
-        return try await ClarineteCache.trends(from: req.redis).trends
+        let refresh = req.query["refresh"] ?? false
+
+        return try await ClarineteCache.trends(req.application, refresh: refresh).trends
     }
 
     app.get("") { req async throws -> View in
-        let cache = try await ClarineteCache.trends(from: req.redis)
+        let refresh = req.query["refresh"] ?? false
+        let cache = try await ClarineteCache.trends(req.application, refresh: refresh)
+
         return try await req.view.render("clarinete", ["cache": cache])
     }
 

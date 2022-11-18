@@ -19,12 +19,20 @@ struct Trends: Codable {
 }
 
 class ClarineteCache {
-    static func trends(from redis: RedisClient) async throws -> Trends {
+    static func trends(_ application: Application, refresh: Bool) async throws -> Trends {
+        guard refresh else {
+            return try await ClarineteCache.cached(from: application.redis)
+        }
+
+        return try await ClarineteCache.fetch(application: application)
+    }
+
+    static func cached(from redis: RedisClient) async throws -> Trends {
         let redisKey = RedisKey("clarinete_trends")
         return try await redis.get(redisKey, asJSON: Trends.self) ?? Trends.empty()
     }
 
-    static func cacheTrends(application: Application) async throws -> Trends {
+    static func fetch(application: Application) async throws -> Trends {
         let redisKey = RedisKey("clarinete_trends")
 
         let client = application.client
