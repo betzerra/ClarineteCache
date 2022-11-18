@@ -9,7 +9,7 @@
 
 <body>
     <h1>Trends</h1>
-    <p><b>Última actualización:</b> #date(cache.timestamp, "dd-MM-YYYY hh:mm")</p>
+    <p><b>Última actualización:</b> #date(cache.timestamp, "dd-MM-YYYY HH:mm")</p>
     <ul>
         #for(topic in cache.trends):
         <li>
