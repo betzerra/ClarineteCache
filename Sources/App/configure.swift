@@ -24,10 +24,13 @@ public func configure(_ app: Application) throws {
     // Redis, for cache
     app.redis.configuration = try RedisConfiguration(url: redisURL)
 
-    // Refresh Clarinete data every hour
-    app.queues.schedule(FetchJob())
-        .hourly()
-        .at(0)
+    // Refresh Clarinete data every 10 minutes
+    app.queues.schedule(FetchJob()).hourly().at(0)
+    app.queues.schedule(FetchJob()).hourly().at(10)
+    app.queues.schedule(FetchJob()).hourly().at(20)
+    app.queues.schedule(FetchJob()).hourly().at(30)
+    app.queues.schedule(FetchJob()).hourly().at(40)
+    app.queues.schedule(FetchJob()).hourly().at(50)
 
     // register routes
     try routes(app)
