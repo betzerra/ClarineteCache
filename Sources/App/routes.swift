@@ -6,22 +6,24 @@ enum ClarineteError: Error {
 }
 
 func routes(_ app: Application) throws {
-    guard let redisURL: String = Environment.get("REDIS_URL") else {
-        throw ClarineteError.wrongRedisURL
-    }
-
-    app.redis.configuration = try RedisConfiguration(url: redisURL)
-
     app.get("api", "trends") { req async throws -> [Trend] in
-        return try await ClarineteCache.trends(req: req).trends
+        let refresh = req.query["refresh"] ?? false
+
+        req.logger.info("GET api/trends - refresh: \(refresh)")
+        return try await ClarineteCache.trends(req.application, refresh: refresh).trends
     }
 
     app.get("") { req async throws -> View in
-        let cache = try await ClarineteCache.trends(req: req)
+        let refresh = req.query["refresh"] ?? false
+
+        req.logger.info("GET / - refresh: \(refresh)")
+        let cache = try await ClarineteCache.trends(req.application, refresh: refresh)
+
         return try await req.view.render("clarinete", ["cache": cache])
     }
 
     app.get("redis") { req -> EventLoopFuture<String> in
+        req.logger.info("GET redis")
         return req.redis.ping()
     }
 }
