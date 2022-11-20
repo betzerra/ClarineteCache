@@ -9,11 +9,6 @@ public func configure(_ app: Application) throws {
 
     app.views.use(.leaf)
 
-    app.http.client.configuration.timeout = .init(
-        connect: .seconds(5),
-        read: .seconds(5)
-    )
-
     guard let redisURL: String = Environment.get("REDIS_URL") else {
         throw ClarineteError.wrongRedisURL
     }
