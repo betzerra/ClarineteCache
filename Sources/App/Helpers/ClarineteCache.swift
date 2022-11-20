@@ -21,7 +21,12 @@ struct Trends: Codable {
 class ClarineteCache {
     static func trends(_ application: Application, refresh: Bool) async throws -> Trends {
         guard refresh else {
-            return try await ClarineteCache.cached(from: application.redis)
+            do {
+                return try await ClarineteCache.cached(from: application.redis)
+            } catch {
+                application.logger.error("\(error.localizedDescription)")
+                return Trends.empty()
+            }
         }
 
         return try await ClarineteCache.fetch(application: application)

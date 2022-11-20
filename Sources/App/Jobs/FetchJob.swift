@@ -11,13 +11,13 @@ import Vapor
 
 struct FetchJob: AsyncScheduledJob {
     func run(context: Queues.QueueContext) async throws {
+        let logger = context.application.logger
+
         do {
-            let logger = context.application.logger
-            logger.debug("FetchJob running")
+            logger.info("FetchJob running")
             _ = try await ClarineteCache.fetch(application: context.application)
         } catch {
-            // Log
-            print(error.localizedDescription)
+            logger.error("\(error.localizedDescription)")
         }
     }
 }
