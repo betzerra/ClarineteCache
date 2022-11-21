@@ -11,7 +11,7 @@ import Vapor
 
 struct Trends: Codable {
     let timestamp: Date
-    let trends: [Trend]
+    let trends: LossyCodableList<Trend>
 
     static func empty() -> Trends {
         return Trends(timestamp: Date(), trends: [])

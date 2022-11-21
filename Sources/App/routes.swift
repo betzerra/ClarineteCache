@@ -10,7 +10,7 @@ func routes(_ app: Application) throws {
         let refresh = req.query["refresh"] ?? false
 
         req.logger.info("GET api/trends - refresh: \(refresh)")
-        return try await ClarineteCache.trends(req.application, refresh: refresh).trends
+        return try await ClarineteCache.trends(req.application, refresh: refresh).trends.elements
     }
 
     app.get("") { req async throws -> View in
