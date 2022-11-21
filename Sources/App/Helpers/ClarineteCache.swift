@@ -14,7 +14,10 @@ struct Trends: Codable {
     let trends: LossyCodableList<Trend>
 
     static func empty() -> Trends {
-        return Trends(timestamp: Date(), trends: [])
+        return Trends(
+            timestamp: Date(),
+            trends: LossyCodableList(elements: [])
+        )
     }
 }
 
@@ -53,7 +56,10 @@ class ClarineteCache {
         }
 
         // Create a cache object (trends + timestamp)
-        let fresh = Trends(timestamp: Date(), trends: sortedTrends)
+        let fresh = Trends(
+            timestamp: Date(),
+            trends: LossyCodableList(elements: sortedTrends)
+        )
 
         try await redis.set(redisKey, toJSON: fresh)
         return fresh
