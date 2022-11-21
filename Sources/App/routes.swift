@@ -1,16 +1,12 @@
 import Redis
 import Vapor
 
-enum ClarineteError: Error {
-    case wrongRedisURL
-}
-
 func routes(_ app: Application) throws {
     app.get("api", "trends") { req async throws -> [Trend] in
         let refresh = req.query["refresh"] ?? false
 
         req.logger.info("GET api/trends - refresh: \(refresh)")
-        return try await ClarineteCache.trends(req.application, refresh: refresh).trends.elements
+        return try await ClarineteCache.trends(req.application, refresh: refresh).trends
     }
 
     app.get("") { req async throws -> View in

@@ -11,13 +11,25 @@ import Vapor
 
 struct Trends: Codable {
     let timestamp: Date
-    let trends: LossyCodableList<Trend>
+    let trends: [Trend]
 
     static func empty() -> Trends {
-        return Trends(
-            timestamp: Date(),
-            trends: LossyCodableList(elements: [])
-        )
+        return Trends(timestamp: Date(), trends: [])
+    }
+}
+
+enum ClarineteError: LocalizedError {
+    case wrongRedisURL
+    case emptyData
+
+    var errorDescription: String? {
+        switch self {
+        case .emptyData:
+            return "Data should never be empty"
+
+        case .wrongRedisURL:
+            return "Couldn't find any redis server at the URL specified"
+        }
     }
 }
 
@@ -48,18 +60,19 @@ class ClarineteCache {
 
         // Fetch fresh data from source
         let uri = URI("https://clarinete.seppo.com.ar/api/trends")
-        let trends = try await client.get(uri).content.decode([Trend].self)
+        let trends = try await client.get(uri).content.decode(LossyCodableList<Trend>.self)
+
+        guard trends.elements.count > 0 else {
+            throw ClarineteError.emptyData
+        }
 
         // Sort trends
-        let sortedTrends = trends.sorted { lhs, rhs in
+        let sortedTrends = trends.elements.sorted { lhs, rhs in
             lhs.name.lowercased() < rhs.name.lowercased()
         }
 
         // Create a cache object (trends + timestamp)
-        let fresh = Trends(
-            timestamp: Date(),
-            trends: LossyCodableList(elements: sortedTrends)
-        )
+        let fresh = Trends(timestamp: Date(), trends: sortedTrends)
 
         try await redis.set(redisKey, toJSON: fresh)
         return fresh
