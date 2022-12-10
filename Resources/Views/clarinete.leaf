@@ -14,6 +14,9 @@
         #for(topic in cache.trends):
         <li>
             <a href="#(topic.url.relative)"><b>#(topic.name)</b></a> - #(topic.title)
+            #if(topic.category):
+                <mark>#(topic.category)</mark>
+            #endif
         </li>
         #endfor
     </ul>
