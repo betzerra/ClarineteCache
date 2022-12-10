@@ -14,7 +14,7 @@ struct Trend: Content {
     let relatedTopics: [String]
     let title: String
     let url: URL
-    var category: String?
+    var category: Category?
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -32,6 +32,6 @@ struct Trend: Content {
         self.relatedTopics = try container.decode([String].self, forKey: .relatedTopics)
         self.title = try container.decode(String.self, forKey: .title)
         self.url = try container.decode(URL.self, forKey: .url)
-        self.category = Category.from(url: self.url)?.display
+        self.category = Category.from(url: self.url)
     }
 }

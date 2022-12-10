@@ -9,16 +9,22 @@
 
 <body>
     <h1>Trends</h1>
-    <p><b>Última actualización:</b> #date(cache.timestamp, "dd-MM-YYYY HH:mm")</p>
-    <ul>
-        #for(topic in cache.trends):
-        <li>
-            <a href="#(topic.url.relative)"><b>#(topic.name)</b></a> - #(topic.title)
-            #if(topic.category):
-                <mark>#(topic.category)</mark>
-            #endif
-        </li>
-        #endfor
-    </ul>
+    <p><b>Última actualización:</b> #date(timestamp, "dd-MM-YYYY HH:mm")</p>
+
+    #for(group in groups):
+        #if(count(group.trends) > 0):
+            <!-- #(group.title) -->
+            <section>
+                <h2>#(group.title)</h2>
+                <ul>
+                #for(topic in group.trends):
+                    <li>
+                        <a href="#(topic.url.relative)"><b>#(topic.name)</b></a> - #(topic.title)
+                    </li>
+                #endfor
+                </ul>
+            </section>
+        #endif
+    #endfor
 </body>
 </html>

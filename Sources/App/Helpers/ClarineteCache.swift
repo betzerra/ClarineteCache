@@ -9,12 +9,28 @@ import Foundation
 import Redis
 import Vapor
 
+struct GroupedTrends: Codable {
+    let title: String
+    let trends: [Trend]
+}
+
 struct Trends: Codable {
     let timestamp: Date
     let trends: [Trend]
 
     static func empty() -> Trends {
         return Trends(timestamp: Date(), trends: [])
+    }
+
+    var grouped: [GroupedTrends] {
+        [
+            GroupedTrends(title: "Internacional", trends: trends.filter { $0.category == .international }),
+            GroupedTrends(title: "Política", trends: trends.filter { $0.category == .politics }),
+            GroupedTrends(title: "Economía", trends: trends.filter { $0.category == .economics}),
+            GroupedTrends(title: "Tecnología", trends: trends.filter { $0.category == .tech }),
+            GroupedTrends(title: "Deportes", trends: trends.filter { $0.category == .sports }),
+            GroupedTrends(title: "Otros", trends: trends.filter { $0.category == nil })
+        ]
     }
 }
 

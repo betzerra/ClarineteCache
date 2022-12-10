@@ -33,25 +33,6 @@ enum Category: String, CaseIterable, Codable {
         }
     }
 
-    var display: String {
-        switch self {
-        case .economics:
-            return "Economía"
-
-        case .international:
-            return "Internacionales"
-
-        case .politics:
-            return "Política"
-
-        case .sports:
-            return "Deportes"
-
-        case .tech:
-            return "Tecnología"
-        }
-    }
-
     static func from(word: String) -> Category? {
         for element in self.allCases {
             if element.synonims.contains(word) {
