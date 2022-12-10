@@ -32,7 +32,10 @@
     </div>
     <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 px-3 border-top">
         <div>
-          <span class="text-muted text-decoration-none">Betzerra</span>
+            <span class="text-muted text-decoration-none">Por Betzerra (la <a href="https://github.com/seppo0010/clarinete/">API</a> es de Seppo).</span>
+        </div>
+        <div>
+            <a href="api/trends">JSON</a>
         </div>
     </footer>
 
