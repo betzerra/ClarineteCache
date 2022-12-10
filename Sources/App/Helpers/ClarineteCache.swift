@@ -34,6 +34,21 @@ struct Trends: Codable {
     }
 }
 
+enum ClarineteError: LocalizedError {
+    case wrongRedisURL
+    case emptyData
+
+    var errorDescription: String? {
+        switch self {
+        case .emptyData:
+            return "Data should never be empty"
+
+        case .wrongRedisURL:
+            return "Couldn't find any redis server at the URL specified"
+        }
+    }
+}
+
 class ClarineteCache {
     static func trends(_ application: Application, refresh: Bool) async throws -> Trends {
         guard refresh else {
@@ -61,10 +76,14 @@ class ClarineteCache {
 
         // Fetch fresh data from source
         let uri = URI("https://clarinete.seppo.com.ar/api/trends")
-        let trends = try await client.get(uri).content.decode([Trend].self)
+        let trends = try await client.get(uri).content.decode(LossyCodableList<Trend>.self)
+
+        guard trends.elements.count > 0 else {
+            throw ClarineteError.emptyData
+        }
 
         // Sort trends
-        let sortedTrends = trends.sorted { lhs, rhs in
+        let sortedTrends = trends.elements.sorted { lhs, rhs in
             lhs.name.lowercased() < rhs.name.lowercased()
         }
 

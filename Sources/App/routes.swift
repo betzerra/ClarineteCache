@@ -1,10 +1,6 @@
 import Redis
 import Vapor
 
-enum ClarineteError: Error {
-    case wrongRedisURL
-}
-
 struct HomeContent: Content {
     let timestamp: Date
     let groups: [GroupedTrends]
