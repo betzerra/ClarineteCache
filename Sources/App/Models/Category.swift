@@ -11,6 +11,7 @@ enum Category: String, CaseIterable, Codable {
     case economics
     case international
     case politics
+    case shows
     case sports
     case tech
 
@@ -25,8 +26,11 @@ enum Category: String, CaseIterable, Codable {
         case .politics:
             return ["politica"]
 
+        case .shows:
+            return ["espectaculos", "famosos", "tvshow", "arts"]
+
         case .sports:
-            return ["deportes"]
+            return ["deportes", "el-deportivo"]
 
         case .tech:
             return ["tecnologia"]

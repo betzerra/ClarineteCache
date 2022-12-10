@@ -27,6 +27,7 @@ struct Trends: Codable {
             GroupedTrends(title: "Internacional 🌎", trends: trends.filter { $0.category == .international }),
             GroupedTrends(title: "Política 🏛️", trends: trends.filter { $0.category == .politics }),
             GroupedTrends(title: "Economía 💵", trends: trends.filter { $0.category == .economics}),
+            GroupedTrends(title: "Espectáculos 🎬", trends: trends.filter { $0.category == .shows }),
             GroupedTrends(title: "Tecnología 📱", trends: trends.filter { $0.category == .tech }),
             GroupedTrends(title: "Deportes ⚽️", trends: trends.filter { $0.category == .sports }),
             GroupedTrends(title: "Otros", trends: trends.filter { $0.category == nil })
