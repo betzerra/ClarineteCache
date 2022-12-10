@@ -9,6 +9,7 @@ public func configure(_ app: Application) throws {
 
     app.views.use(.leaf)
 
+    // NOTE: Use "redis://localhost" when working locally
     guard let redisURL: String = Environment.get("REDIS_URL") else {
         throw ClarineteError.wrongRedisURL
     }
