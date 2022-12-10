@@ -34,4 +34,20 @@ struct Trend: Content {
         self.url = try container.decode(URL.self, forKey: .url)
         self.category = Category.from(url: self.url)
     }
+
+    init(
+        id: Int,
+        name: String,
+        relatedTopics: [String],
+        title: String,
+        url: URL,
+        category: Category?
+    ) {
+        self.id = id
+        self.name = name
+        self.relatedTopics = relatedTopics
+        self.title = title
+        self.url = url
+        self.category = category
+    }
 }

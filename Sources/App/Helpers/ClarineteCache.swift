@@ -83,10 +83,13 @@ class ClarineteCache {
             throw ClarineteError.emptyData
         }
 
-        // Sort trends
-        let sortedTrends = trends.elements.sorted { lhs, rhs in
-            lhs.name.lowercased() < rhs.name.lowercased()
-        }
+        // 1. Remove trends that contains the same URL
+        // 2. Then, sort them by name
+        let sortedTrends = trends.elements
+            .unique(by: { $0.url })
+            .sorted { lhs, rhs in
+                lhs.name.lowercased() < rhs.name.lowercased()
+            }
 
         // Create a cache object (trends + timestamp)
         let fresh = Trends(timestamp: Date(), trends: sortedTrends)
