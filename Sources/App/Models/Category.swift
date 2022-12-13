@@ -18,16 +18,16 @@ enum Category: String, CaseIterable, Codable {
     var synonims: [String] {
         switch self {
         case .economics:
-            return ["business", "economia"]
+            return ["business", "economia", "finanzas", "negocios"]
 
         case .international:
-            return ["internacional", "internacionales", "mundo"]
+            return ["internacional", "internacionales", "mundo", "el-mundo"]
 
         case .politics:
             return ["politica"]
 
         case .shows:
-            return ["espectaculos", "famosos", "tvshow", "arts"]
+            return ["espectaculos", "famosos", "tvshow", "arts", "fama"]
 
         case .sports:
             return ["deportes", "el-deportivo"]
