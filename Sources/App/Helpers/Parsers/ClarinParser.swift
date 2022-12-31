@@ -9,27 +9,14 @@ import Foundation
 import SwiftSoup
 
 class ClarinParser: BaseParser {
-    override func page() throws -> Page {
-        do {
-            return Page(
-                url: url,
-                title: "Foo",
-                description: "Bar",
-                thumbnail: thumbnail(document: document),
-                body: try body(document: document),
-                html: html
-            )
-        } catch let error {
-            print("Error: \(error)")
-            throw error
-        }
-    }
-
     override func body(document: Document) throws -> String {
-        return "Baz"
-    }
+        let paragraphs = try document
+            .select("article.entry-body")
+            .flatMap { try $0.getElementsByTag("p") }
 
-    override func thumbnail(document: Document) -> Thumbnail? {
-        return nil
+        return paragraphs
+            .compactMap { try? $0.html() }
+            .map { "<p>\($0)</p>" }
+            .joined(separator: "\n")
     }
 }

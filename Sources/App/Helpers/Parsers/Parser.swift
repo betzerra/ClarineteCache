@@ -10,6 +10,7 @@ import SwiftSoup
 
 enum ParserError: Error {
     case missingData
+    case parserNotFound
 }
 
 protocol Parser {

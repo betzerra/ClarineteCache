@@ -9,8 +9,7 @@ import Foundation
 
 struct Page: Codable {
     let url: URL
-    let title: String
-    let description: String
+    let meta: PageMeta
     let thumbnail: Thumbnail?
     let body: String
     let html: String
