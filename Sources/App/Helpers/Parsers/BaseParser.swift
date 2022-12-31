@@ -8,6 +8,12 @@
 import Foundation
 import SwiftSoup
 
+#if canImport(FoundationNetworking)
+// Fixes "Fatal error: You must link or load module FoundationNetworking to load non-file: URL content using String(contentsOf:…)" on Linux
+// See https://stackoverflow.com/a/58606520
+import FoundationNetworking
+#endif
+
 class BaseParser: Parser {
     let url: URL
     let html: String
