@@ -25,8 +25,8 @@
                     <ul>
                     #for(topic in group.trends):
                         <li>
-                            <a href="#(topic.url.relative)"><b>#(topic.name)</b></a> - #(topic.title)
-                            <a href="/unpaywall/#(topic.url.relative)">
+                            <a href="/unpaywall/#(topic.url.relative)"><b>#(topic.name)</b></a> - #(topic.title)
+                            <a href="#(topic.url.relative)">
                                 <i class="bi bi-link-45deg"></i>
                             </a>
                         </li>
