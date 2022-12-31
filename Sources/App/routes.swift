@@ -11,6 +11,14 @@ struct HomeContent: Content {
     }
 }
 
+struct PageContent: Content {
+    let page: Page
+
+    init(page: Page) {
+        self.page = page
+    }
+}
+
 func routes(_ app: Application) throws {
     app.get("api", "trends") { req async throws -> [Trend] in
         let refresh = req.query["refresh"] ?? false
@@ -27,6 +35,26 @@ func routes(_ app: Application) throws {
         let content = HomeContent(timestamp: cache.timestamp, groups: cache.grouped)
 
         return try await req.view.render("clarinete", content)
+    }
+
+    app.get("unpaywall", "**") { req async throws -> View in
+        // Substract the first path component so we get the URL
+        // we want to scrap
+        let prefix = "/unpaywall/"
+        let websiteRange = prefix.endIndex ..< req.url.path.endIndex
+        let website = String(req.url.path[websiteRange])
+
+        guard let url = URL(string: website) else {
+            print("Error: \(website) doesn't seem to be a valid URL")
+            throw ParserError.missingData
+        }
+
+        guard let parser = try ParserFactory.parser(from: url) else {
+            throw ParserError.parserNotFound
+        }
+
+        let page = try parser.page()
+        return try await req.view.render("page", page)
     }
 
     app.get("redis") { req -> EventLoopFuture<String> in

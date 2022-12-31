@@ -11,12 +11,14 @@ let package = Package(
         .package(url: "https://github.com/vapor/vapor.git", from: "4.0.0"),
         .package(url: "https://github.com/vapor/leaf.git", from: "4.0.0"),
         .package(url: "https://github.com/vapor/redis.git", from: "4.0.0"),
-        .package(url: "https://github.com/vapor/queues-redis-driver.git", from: "1.0.0")
+        .package(url: "https://github.com/vapor/queues-redis-driver.git", from: "1.0.0"),
+        .package(url: "https://github.com/scinfu/SwiftSoup.git", from: "2.4.3")
     ],
     targets: [
         .target(
             name: "App",
             dependencies: [
+                .product(name: "SwiftSoup", package: "SwiftSoup"),
                 .product(name: "Leaf", package: "leaf"),
                 .product(name: "Vapor", package: "vapor"),
                 .product(name: "Redis", package: "redis"),
