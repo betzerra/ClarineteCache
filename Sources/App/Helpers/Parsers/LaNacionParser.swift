@@ -15,8 +15,7 @@ class LaNacionParser: BaseParser {
             .flatMap { try $0.getElementsByTag("p") }
 
         return paragraphs
-            .compactMap { try? $0.html() }
-            .map { "<p>\($0)</p>" }
+            .compactMap { try? $0.outerHtml() }
             .joined(separator: "\n")
     }
 }
