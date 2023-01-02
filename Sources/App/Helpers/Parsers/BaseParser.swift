@@ -76,6 +76,14 @@ class BaseParser: Parser {
         fatalError("Subclasses need to implement this method")
     }
 
+    func sanitizeBody(elements: [Element]) throws -> [Element] {
+        let filtered = try elements
+            .flatMap { try $0.getAllElements() }
+            .compactMap { try $0.readModeBodyElement() }
+
+        return filtered
+    }
+
     // MARK: - Private
     private func metaTitle() throws -> String? {
         return try document

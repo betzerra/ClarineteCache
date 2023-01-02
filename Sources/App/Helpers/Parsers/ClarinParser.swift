@@ -10,11 +10,17 @@ import SwiftSoup
 
 class ClarinParser: BaseParser {
     override func body(document: Document) throws -> String {
-        let paragraphs = try document
+        let article = try document
             .select("article.entry-body")
-            .flatMap { try $0.getElementsByTag("p") }
 
-        return paragraphs
+        let allElements: [Element] = article.array()
+
+        let rejectClasses = ["related", "related ", "noticiaIndividual"]
+        allElements.forEach { $0.remove(classNames: rejectClasses) }
+
+        let elements = try sanitizeBody(elements: allElements)
+
+        return elements
             .compactMap { try? $0.outerHtml() }
             .joined(separator: "\n")
     }
