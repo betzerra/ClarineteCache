@@ -20,9 +20,9 @@ extension Element {
         }
 
         // These tags are reserved for article's title and subtitle
-        let bigTitles = ["h1", "h2"]
+        let bigTitles = ["h1", "h2", "h3", "h4"]
         if bigTitles.contains(tagName()) {
-            element = try element.tagName("h3")
+            element = try element.tagName("h5")
         }
 
         return element
