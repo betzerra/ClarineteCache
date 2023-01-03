@@ -32,7 +32,6 @@ extension Element {
         let childrenToRemove = children().filter { $0.hasClassNames(classNames) }
 
         try? childrenToRemove.forEach { child in
-            let html = (try? child.outerHtml()) ?? "N/A"
             try removeChild(child)
         }
 

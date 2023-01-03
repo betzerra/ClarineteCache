@@ -13,7 +13,12 @@ class LaNacionParser: BaseParser {
         let article = try document
             .select("section.cuerpo__nota")
 
-        let elements = try sanitizeBody(elements: article.array())
+        let allElements: [Element] = article.array()
+
+        let rejectClasses = ["box-article", "box-articles  ", "mod-themes ", "mod-article"]
+        allElements.forEach { $0.remove(classNames: rejectClasses) }
+
+        let elements = try sanitizeBody(elements: allElements)
 
         return elements
             .compactMap { try? $0.outerHtml() }
