@@ -10,13 +10,18 @@ import SwiftSoup
 
 class LaNacionParser: BaseParser {
     override func body(document: Document) throws -> String {
-        let paragraphs = try document
+        let article = try document
             .select("section.cuerpo__nota")
-            .flatMap { try $0.getElementsByTag("p") }
 
-        return paragraphs
-            .compactMap { try? $0.html() }
-            .map { "<p>\($0)</p>" }
+        let allElements: [Element] = article.array()
+
+        let rejectClasses = ["box-article", "box-articles  ", "mod-themes ", "mod-article"]
+        allElements.forEach { $0.remove(classNames: rejectClasses) }
+
+        let elements = try sanitizeBody(elements: allElements)
+
+        return elements
+            .compactMap { try? $0.outerHtml() }
             .joined(separator: "\n")
     }
 }

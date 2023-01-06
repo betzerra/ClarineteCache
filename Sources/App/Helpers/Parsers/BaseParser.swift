@@ -8,6 +8,12 @@
 import Foundation
 import SwiftSoup
 
+#if canImport(FoundationNetworking)
+// Fixes "Fatal error: You must link or load module FoundationNetworking to load non-file: URL content using String(contentsOf:…)" on Linux
+// See https://stackoverflow.com/a/58606520
+import FoundationNetworking
+#endif
+
 class BaseParser: Parser {
     let url: URL
     let html: String
@@ -68,6 +74,14 @@ class BaseParser: Parser {
 
     func body(document: Document) throws -> String {
         fatalError("Subclasses need to implement this method")
+    }
+
+    func sanitizeBody(elements: [Element]) throws -> [Element] {
+        let filtered = try elements
+            .flatMap { try $0.getAllElements() }
+            .compactMap { try $0.readModeBodyElement() }
+
+        return filtered
     }
 
     // MARK: - Private

@@ -49,6 +49,8 @@ func routes(_ app: Application) throws {
             throw ParserError.missingData
         }
 
+        req.logger.info("GET unpaywall - URL: \(url)")
+
         guard let parser = try ParserFactory.parser(from: url) else {
             throw ParserError.parserNotFound
         }
