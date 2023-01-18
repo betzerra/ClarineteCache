@@ -21,7 +21,7 @@ enum Category: String, CaseIterable, Codable {
             return ["business", "economia", "finanzas", "negocios"]
 
         case .international:
-            return ["internacional", "internacionales", "mundo", "el-mundo", "new-york-times-international"]
+            return ["internacional", "internacionales", "mundo", "el-mundo", "new-york-times-international-weekly"]
 
         case .politics:
             return ["politica"]
