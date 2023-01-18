@@ -21,16 +21,16 @@ enum Category: String, CaseIterable, Codable {
             return ["business", "economia", "finanzas", "negocios"]
 
         case .international:
-            return ["internacional", "internacionales", "mundo", "el-mundo"]
+            return ["internacional", "internacionales", "mundo", "el-mundo", "new-york-times-international-weekly"]
 
         case .politics:
             return ["politica"]
 
         case .shows:
-            return ["espectaculos", "famosos", "tvshow", "arts", "fama"]
+            return ["espectaculos", "famosos", "tvshow", "arts", "fama", "celebrities", "series-y-peliculas"]
 
         case .sports:
-            return ["deportes", "el-deportivo"]
+            return ["deportes", "el-deportivo", "futbol"]
 
         case .tech:
             return ["tecnologia"]
