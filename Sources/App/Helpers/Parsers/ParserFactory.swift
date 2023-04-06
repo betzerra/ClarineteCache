@@ -20,6 +20,9 @@ class ParserFactory {
         case _ where host.contains("ambito.com"):
             return try AmbitoParser(url: url)
 
+        case _ where host.contains("elpais.com.uy"):
+            return try ElPaisParser(url: url)
+
         case _ where host.contains("lanacion.com"):
             return try LaNacionParser(url: url)
 
