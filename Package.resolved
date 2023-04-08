@@ -28,6 +28,15 @@
       }
     },
     {
+      "identity" : "csfeedkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/thecatalinstan/CSFeedKit",
+      "state" : {
+        "revision" : "273343770028aea2a41f06ea3cec3f741c7b62c9",
+        "version" : "1.0.0"
+      }
+    },
+    {
       "identity" : "leaf",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/vapor/leaf.git",
