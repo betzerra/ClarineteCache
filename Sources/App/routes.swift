@@ -63,4 +63,11 @@ func routes(_ app: Application) throws {
         req.logger.info("GET redis")
         return req.redis.ping()
     }
+
+    app.get("rss") { req async throws -> String in
+        req.logger.info("GET rss")
+        let cache = try await ClarineteCache.trends(req.application, refresh: false)
+        let feed = RSSGenerator(trends: cache)
+        return feed.feedString
+    }
 }
