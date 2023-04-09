@@ -37,11 +37,13 @@ class RSSGenerator {
                 tags.append(category)
             }
 
+            let link = "https://clarinetecache.apps.betzerra.dev/unpaywall/\($0.url.absoluteString)"
+
             return RSSItem.init(
                 title: $0.title,
-                link: "https://clarinetecache.apps.betzerra.dev/unpaywall/\($0.url.absoluteString)",
+                link: link,
                 description: $0.title,
-                guid: RSSItemGUID(value: $0.url.absoluteString, isPermalink: true),
+                guid: RSSItemGUID(value: link, isPermalink: true),
                 category: tags
             )
         }
