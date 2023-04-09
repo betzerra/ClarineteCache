@@ -28,15 +28,6 @@
       }
     },
     {
-      "identity" : "csfeedkit",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/thecatalinstan/CSFeedKit",
-      "state" : {
-        "revision" : "273343770028aea2a41f06ea3cec3f741c7b62c9",
-        "version" : "1.0.0"
-      }
-    },
-    {
       "identity" : "leaf",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/vapor/leaf.git",
@@ -250,6 +241,15 @@
       "state" : {
         "revision" : "2d9d2188a08eef4a869d368daab21b3c08510991",
         "version" : "2.6.1"
+      }
+    },
+    {
+      "identity" : "xmlcoder",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/CoreOffice/XMLCoder.git",
+      "state" : {
+        "revision" : "c438dad94f6a243b411b70a4b4bac54595064808",
+        "version" : "0.15.0"
       }
     }
   ],
