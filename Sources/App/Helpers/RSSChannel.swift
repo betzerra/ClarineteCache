@@ -15,6 +15,7 @@ struct RSSChannel: Codable {
     let pubDate: Date
     let language: String
     let ttl: Int
+    let image: String
 
     let item: [RSSItem]
 }

@@ -17,13 +17,14 @@ class RSSGenerator {
 
     static func channel(from trends: [Trend]) -> RSSFeed {
         let channel = RSSChannel(
-            title: "Clarinete RSS Feed",
+            title: "Clarinete",
             link: "https://clarinetecache.apps.betzerra.dev/rss",
             description: "Noticias, pero menos peores",
             lastBuildDate: Date(),
             pubDate: Date(),
             language: "es-AR",
             ttl: 3600,
+            image: "https://nyc3.digitaloceanspaces.com/betzerra/clarinete/rss_channel.png",
             item: RSSGenerator.items(from: trends)
         )
 
