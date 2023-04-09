@@ -38,24 +38,7 @@ func routes(_ app: Application) throws {
     }
 
     app.get("unpaywall", "**") { req async throws -> View in
-        // Substract the first path component so we get the URL
-        // we want to scrap
-        let prefix = "/unpaywall/"
-        let websiteRange = prefix.endIndex ..< req.url.path.endIndex
-        let website = String(req.url.path[websiteRange])
-
-        guard let url = URL(string: website) else {
-            print("Error: \(website) doesn't seem to be a valid URL")
-            throw ParserError.missingData
-        }
-
-        req.logger.info("GET unpaywall - URL: \(url)")
-
-        guard let parser = try ParserFactory.parser(from: url) else {
-            throw ParserError.parserNotFound
-        }
-
-        let page = try parser.page()
+        let page = try await Unpaywall.page(req: req)
         return try await req.view.render("page", page)
     }
 
