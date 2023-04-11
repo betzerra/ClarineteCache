@@ -10,14 +10,10 @@ import SwiftSoup
 
 class Pagina12Parser: BaseParser {
     override func body(document: Document) throws -> String {
-        let article = try document.select("div.section-2-col.article-main-content")
+        let article = try document
+            .select("div.section-2-col.article-main-content")
 
-        let allElements: [Element] = article.array()
-
-        let rejectClasses: [String] = []
-        allElements.forEach { $0.remove(classNames: rejectClasses) }
-
-        let elements = try sanitizeBody(elements: allElements)
+        let elements = try sanitizeBody(elements: article.array())
 
         return elements
             .compactMap { try? $0.outerHtml() }

@@ -10,14 +10,10 @@ import SwiftSoup
 
 class ElMundoParser: BaseParser {
     override func body(document: Document) throws -> String {
-        let article = try document.select("div.ue-l-article__body.ue-c-article__body")
+        let article = try document
+            .select("div.ue-l-article__body.ue-c-article__body")
 
-        let allElements: [Element] = article.array()
-
-        let rejectClasses: [String] = []
-        allElements.forEach { $0.remove(classNames: rejectClasses) }
-
-        let elements = try sanitizeBody(elements: allElements)
+        let elements = try sanitizeBody(elements: article.array())
 
         return elements
             .compactMap { try? $0.outerHtml() }
