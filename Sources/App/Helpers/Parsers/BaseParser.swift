@@ -19,9 +19,9 @@ class BaseParser: Parser {
     let html: String
     let document: Document
 
-    init(url: URL) throws {
+    init(url: URL, encoding: String.Encoding = .utf8) throws {
         self.url = url
-        self.html = try String(contentsOf: url, encoding: .utf8)
+        self.html = try String(contentsOf: url, encoding: encoding)
         self.document = try SwiftSoup.parse(html)
     }
 
