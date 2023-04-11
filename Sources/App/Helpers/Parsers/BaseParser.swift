@@ -19,10 +19,18 @@ class BaseParser: Parser {
     let html: String
     let document: Document
 
-    init(url: URL, encoding: String.Encoding = .utf8) throws {
+    /// Specifies (as a CSS query) which part of the HTML should be parsed
+    let select: String
+
+    /// Specifies which parts should be removed from the scrapped HTML
+    let rejectedClasses: [String]
+
+    init(url: URL, select: String, rejectedClasses: [String] = [], encoding: String.Encoding = .utf8) throws {
         self.url = url
         self.html = try String(contentsOf: url, encoding: encoding)
         self.document = try SwiftSoup.parse(html)
+        self.select = select
+        self.rejectedClasses = rejectedClasses
     }
 
     func meta() throws -> PageMeta {
@@ -73,7 +81,16 @@ class BaseParser: Parser {
     }
 
     func body(document: Document) throws -> String {
-        fatalError("Subclasses need to implement this method")
+        let article = try document.select(self.select)
+
+        let allElements: [Element] = article.array()
+        allElements.forEach { $0.remove(classNames: self.rejectedClasses) }
+
+        let elements = try sanitizeBody(elements: allElements)
+
+        return elements
+            .compactMap { try? $0.outerHtml() }
+            .joined(separator: "\n")
     }
 
     func sanitizeBody(elements: [Element]) throws -> [Element] {
